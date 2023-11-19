@@ -1,11 +1,10 @@
 # 术语缩写释义
 
-在本书各个篇章出现了较多的术语缩写，在初次引用时，会注明释义。但为了读者查阅方便，我按分类整理成以下表格，供读者参阅。
 There are more terms abbreviations in each chapter of this book. When the initial reference, the interpretation will be indicated.However, in order to read the readers, I organized it as the following forms for readers for reference.
 
-表 1 网络类
+Table 1 network class
 
-|术语|名词全称|释义|
+| Terms | Full name of noun | Interpretation |
 |:--|:--|:--|
 | VPC | Virtual Private Cloud | 私有网络 |
 | VIP | Virtual IP address | 虚拟 IP 地址 |
@@ -20,9 +19,9 @@ There are more terms abbreviations in each chapter of this book. When the initia
 | 南北流量 | NORTH-SOUTH traffic | User access to the server traffic |
 | 东西流量 | EAST-WEST traffic | Traffic between service and service in the cluster|
 
-表 2 云技术类
+Table 2 cloud technology
 
-|术语|名词全称|释义|
+| Terms | Full name of noun | Interpretation |
 |:--|:--|:--|
 | IaaS | Infrastructure as a Service | 基础设施即服务 |
 | PaaS | Platform  as a Service | 平台即服务 |
@@ -38,9 +37,9 @@ There are more terms abbreviations in each chapter of this book. When the initia
 | CI/CD|  Continuous Intergration + Continuous Deployment | 持续集成 + 持续交付 |
 
 
-表 3 Kubernetes 相关类
+表 3 Kubernetes Related classes
 
-|术语|名词全称|释义|
+| Terms | Full name of noun | Interpretation |
 |:--|:--|:--|
 | CNCF | Cloud Native Computing Foundation | 云原生计算基金会 |
 | OCI | Open Container Initiative | Linux 基金主导的开放容器标准 |
@@ -49,9 +48,9 @@ There are more terms abbreviations in each chapter of this book. When the initia
 | CRD | Custom Resource Definition | 自定义资源的定义，用来扩展 Kubernetes 资源 |
 | Operator | CRD + AdmissionWebhook + Controller | 用来解决某个应用场景的 Kubernetes 扩展 |
 
-表 4 业务类
+Table 4 business class
 
-|术语|名词全称|释义|
+| Terms | Full name of noun | Interpretation |
 |:--|:--|:--|
 | QPS | Queries Per Second | 每秒请求数 |
 | QoS | Quality of Service | 服务质量 |

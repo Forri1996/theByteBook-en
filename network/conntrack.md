@@ -1,27 +1,35 @@
-# 3.2.2 连接跟踪 conntrack
+# 3.2.2 Connection conntrack
 
-连接跟踪（connection tracking，conntrack，CT）对连接状态进行跟踪并记录。如图 3-11 所示，这是一台 IP 地址为 10.1.1.3 的 Linux 机器，我们能看到这台机器上有两条连接：
+Connection tracking (Conntrack, CT) tracks and records the connection status.As shown in Figure 3-11, this is a Linux machine with an IP address of 10.1.1.3. We can see that there are two connections on this machine:
 
-- 机器访问外部 HTTP 服务的连接（目的端口 80）。
-- 机器访问外部 DNS 服务的连接（目的端口 53）。
+
+-The machine access to the external HTTP service connection (destination port 80).
+-The machine access to the connection of external DNS services (destination port 53).
 
 <div  align="center">
 	<img src="../assets/conntrack.png" width = "400"  align=center />
-	<p>图3-11 conntrack 示例</p>
+	<p>Figure 3-11 Conntrack Example</p>
 </div>
 
 连接跟踪所做的事情就是发现并跟踪这些连接的状态，具体包括：
+What the connection tracking does is to discover and track the state of these connections, including:
 
 - 从数据包中提取元组信息，辨别数据流和对应的连接。
 - 为所有连接维护一个状态数据库（conntrack table），例如连接的创建时间、发送 包数、发送字节数等。
 - 回收过期的连接（GC）。
 - 为更上层的功能（例如 NAT）提供服务。
+-Colon the information from the data packet to distinguish the data flow and the corresponding connection.
+-The connection to maintain a state database (Conntrack Table), such as the creation time, the number of packages, the number of bytes of the sending, and so on.
+-Catched expired connection (GC).
+-Suys for more upper -level functions (such as NAT).
 
-## 1. conntrack 原理
+## 1. conntrack principle
 
 当加载内核模块 nf_conntrack 后，conntrack 机制就开始工作，根据图3-3《Packet flow in NetFilter and General Networking》所示，conntrack（椭圆形方框）在内核中有两处位置（PREROUTING 和 OUTPUT之前）能够跟踪数据包。
+When loading the kernel module NF_Conntrack, the Conntrack mechanism began to work. According to Figure 3-3 "Packet Flow in Netfilter and General Networking", the Conntrack (elliptical frame) has two places (Prerouting and Output and Output. Front)Can track the data packet.
 
 每个通过 conntrack 的数据包，内核都为其生成一个 conntrack 条目用以跟踪此连接，对于后续通过的数据包，内核会判断若此数据包属于一个已有的连接，则更新所对应的 conntrack 条目的状态(比如更新为 ESTABLISHED 状态)，否则内核会为它新建一个 conntrack 条目。所有的 conntrack 条目都存放在一张表里，称为连接跟踪表（conntrack table）。
+each of the Conntrack data packet, the kernel generates a Conntrack entry for it to track this connection. For subsequent packets, the kernel will determine that if this data packet belongs to a existing connection, the corresponding Conntrack entry willThe status (such as the update to the ESTABLISHED state), otherwise the kernel will create a new Conntrack entry for it.All Conntrack entries are stored in a table, called connection tracking table.
 
 连接跟踪表存放于系统内存中，可用 cat /proc/net/nf_conntrack 命令查看当前跟踪的所有 conntrack 条目，conntrack 维护的所有信息都包含在这个条目中，通过它就可以知道某个连接处于什么状态。
 
