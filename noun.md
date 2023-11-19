@@ -1,6 +1,7 @@
 # 术语缩写释义
 
 在本书各个篇章出现了较多的术语缩写，在初次引用时，会注明释义。但为了读者查阅方便，我按分类整理成以下表格，供读者参阅。
+There are more terms abbreviations in each chapter of this book. When the initial reference, the interpretation will be indicated.However, in order to read the readers, I organized it as the following forms for readers for reference.
 
 表 1 网络类
 
@@ -16,8 +17,8 @@
 | TTFB | Time To First Byte | 首字节时间 |
 | BBR | Bottleneck Bandwidth and RTT | Google 推出的拥塞控制算法 |
 | BDP | Bandwidth-Delay Product | 带宽时延积 |
-| 南北流量 | NORTH-SOUTH traffic | 用户访问服务器的流量 |
-| 东西流量 | EAST-WEST traffic | 集群中服务与服务之间的流量 |
+| 南北流量 | NORTH-SOUTH traffic | User access to the server traffic |
+| 东西流量 | EAST-WEST traffic | Traffic between service and service in the cluster|
 
 表 2 云技术类
 
