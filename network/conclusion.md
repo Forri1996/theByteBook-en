@@ -1,4 +1,3 @@
 # 3.4 小结
 
-本章我们介绍了 Linux 内核网络框架 netfilter 以及 iptables 、conntrack 等机制，运维高并发场景一定会面临这些机制的挑战，这也是后续容器网络、负载均衡等应用的基石。此外，DPDK、XDP 篇节也展示了极致网络优化的方向，不过单机性能无论优化总有局限，构建大规模的应用最终还是要走向分布式。下一章，让我们进入分布式系统的首篇 -- 负载均衡。
 In this chapter, we introduced the Linux kernel network framework NETFILTER and IPTables, Conntrack and other mechanisms. The high -concrete scenes will face the challenges of these mechanisms. This is also the cornerstone of subsequent container networks, load balancing and other applications.In addition, DPDK and XDP also show the direction of the ultimate network optimization. However, the single -machine performance always has limitations regardless of the optimization, and the large -scale application of large -scale applications will eventually go to distributed.Next chapter, let's enter the first part of the distributed system -load balancing.

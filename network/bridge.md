@@ -13,7 +13,6 @@ When we deploy Docker or Kubernetes, CNI0 and Docker0 in the host are the virtua
 
 ## 1. Linux Bridge Operating practice
 
-笔者在这里通过实践操作，创建多个 Network namespace 并通过 Bridge 实现通信。该实践的网络拓扑如图 2-2 所示。
 The author creates multiple Network namespace and communicates through Bridge through practical operations here.The network topology of this practice is shown in Figure 2-2.
 
 Create two Network Namespace.
