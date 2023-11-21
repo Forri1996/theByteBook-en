@@ -1,24 +1,23 @@
-# 前言
+# Foreword
 
-10多年前，云计算还是相当虚无缥缈的概念，大部分人都在质疑字如其意，高高在上的“云”，是否能真正“落地”。不过质疑阻挡不了技术发展的脚步，经过10多年的发展，云计算的概念已经耳熟能详，上云已经成为许多中小企业的首选。
+More than a decade ago, cloud computing was a rather elusive concept, with most people questioning whether the lofty concept of the "cloud" could truly materialize. However, skepticism did not impede the progress of technology. After more than ten years of development, the concept of cloud computing has become familiar, and migrating to the cloud has become the preferred choice for many small and medium-sized enterprises.
 
-云形态的演进并没有停止，容器技术、微服务、服务网格等云原生技术又成各大互联网会议少不了的技术话题。新技术对于一些企业而言，往往从最开始的“看不见”，到后来“看不起”，再到“看不懂”，最后终于“跟不上”了。
+The evolution of cloud-native technologies, including containerization, microservices, service mesh, and others, continues to progress. These technologies have become indispensable topics at major internet conferences. For some enterprises, new technologies often start from being "unseen," then progress to being "underestimated," followed by "uncomprehended," and ultimately end up with the struggle of "keeping up" with them.
 
+## Characteristic
 
+- Holistic Approach: This book provides a comprehensive overview of architectural systems, covering topics such as underlay networks, container and cloud-native networking, gateway practices, microservices and distributed systems, cloud-native concepts, quality monitoring, and cost management. It helps engineers swiftly grasp the entirety of architectural systems.
 
+- Integration of Theory and Practice: Starting from principles, the content and technological choices are geared towards practical implementation, aiming to yield tangible benefits for enterprises.
 
-## 本书特色
+- Concise Language and Strong Readability: The book minimizes code descriptions and complex sentence structures. It emphasizes clear and concise textual explanations, complemented by architectural diagrams and flowcharts, making it highly readable.
 
-- 整体性。本书较完整地介绍了架构体系，贯穿 underlay 网络、容器与云原生网络、网关实践、微服务与分布式、云原生、质量监测以及成本管理方面的主题，帮助工程师快速理解架构体系全貌。
-- 理论与实践集合。从原理出发，内容及技术选型以可落地、实际帮企业产生收益为宗旨。
-- 语言简洁，可读性强：本书尽量减少代码描述，复杂的句式。以简洁的文字描述及架构图、流程图为核心，尽量做到适合阅读性。
+## Through this book, readers will learned
 
-## 通过本书，读者将了解到
-
-- 网络架构中的重要概念、常见问题及解决方案
-- 负载均衡与网关的工作原理、不同类型的应用场景和选择方法
-- 分布式架构中的基础理论、技术选型落地、实践经验
-- 微服务架构的核心思想、设计原则、实施流程和优化方法
-- 云原生架构的概念、架构模式和关键技术
-- 系统可用性以及观测建设指导
-- FinOps 云成本管理的概念、方法、工具和实践指导
+- Key concepts, common issues, and solutions in network architecture
+- The working principles of load balancing and gateways, different application scenarios, and selection methods
+- Foundational theory in distributed architecture, practical technology selection, and implementation experiences
+- Core concepts of microservices architecture, design principles, implementation processes, and optimization methods
+- The concept, architectural patterns, and crucial technologies in cloud-native architecture
+- Guidance on system availability and observability construction
+- The concept, methods, tools, and practical guidance in FinOps cloud cost management
