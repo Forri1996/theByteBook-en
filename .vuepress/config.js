@@ -93,7 +93,7 @@ export default defineUserConfig({
                         ]
                     },
                     {
-                        text: '2.4 HTTP 服务优化',
+                        text: '2.4 HTTP 请求优化',
                         link:  '/http/http-performance.md',
        
                         children: [
@@ -123,7 +123,7 @@ export default defineUserConfig({
                 ]
             },
             {
-                text: '第三章：Linux内核网络',
+                text: '第三章：Linux 内核网络',
                 collapsable: true,
                 link: '/network/summary.md',
                 sidebarDepth: 2,
@@ -193,7 +193,24 @@ export default defineUserConfig({
                 ]
             },
             {
-                text: '第五章：分布式系统共识概论',
+                text: "第五章：分布式系统可用性",
+                link: '/distributed-system/summary.md',
+                children: [
+                    '/distributed-system/CAP.md',
+                    '/distributed-system/BASE.md',
+                    '/distributed-system/idempotent.md',
+                    {
+                        text: "5.5 分布式事务协议与解决",
+                        link: '/distributed-system/transaction.md',
+                        children: [
+                            '/distributed-system/compensate.md',
+                            '/distributed-system/2PC.md',
+                        ]
+                    }
+                ]
+            },
+            {
+                text: '第六章：分布式系统共识',
                 collapsable: true,
                 link: '/consensus/summary.md',
                 sidebarDepth: 2,
@@ -215,42 +232,19 @@ export default defineUserConfig({
                 ]
             },
             {
-                text: "第六章：分布式事务",
-                link: '/distributed-system/distributed-transaction.md',
+                text: "第七章：分布式事务",
+                link: '/distributed-transaction/summary.md',
                 children: [
-                    '/distributed-system/BASE.md',
-                    '/distributed-system/cap.md',
-                    '/distributed-system/ACID.md',
-                    '/distributed-system/idempotent.md',
-                    {
-                        text: "5.5 分布式事务协议与解决",
-                        link: '/distributed-system/transaction.md',
-                        children: [
-                            '/distributed-system/compensate.md',
-                            '/distributed-system/2PC.md',
-                            '/distributed-system/XA.md',
-                            '/distributed-system/TCC.md',
-                            '/distributed-system/Saga.md',
-                            '/distributed-system/Seata.md'
-                        ]
-                    },
-                    {
-                        text: "5.6 分布式集群共识问题",
-                        link: '/distributed-system/consistency.md',
-                        children: [
-                            '/distributed-system/consensus.md',
-                            '/distributed-system/raft.md',
-                        ]
-                    },
+                    '/distributed-transaction/ACID.md',
                 ]
             },
             {
-                text: '第七章：容器技术概论与实践',
+                text: '第八章：容器技术概论',
                 link: '/container/summary.md',
                 collapsable: false,
                 sidebarDepth: 1,
                 children: [
-                    '/container/container.md',
+                    '/container/Container-Orchestration-Wars.md',
                     {
                         text: '7.2 容器技术的核心原理',
                         link: '/container/principle.md',

@@ -6,6 +6,7 @@ Table 1 network class
 
 | Terms | Full name of noun | Interpretation |
 |:--|:--|:--|
+| AS | Autonomous System | 网络自治系统 |
 | VPC | Virtual Private Cloud | 私有网络 |
 | VIP | Virtual IP address | 虚拟 IP 地址 |
 | SDN | Software Defined Networking | 软件定义网络 |
