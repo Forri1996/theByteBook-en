@@ -1,11 +1,12 @@
-# 弹性伸缩
+# Autoscaling
 
-弹性伸缩意思通过应用云计算弹性伸缩的功能实现业务量增减资源的合理应用，对于弹性伸缩的意义，总结来说：
+The concept of elastic scalability refers to utilizing the functionality of cloud computing to dynamically adjust resources based on fluctuations in business demand. In summary, the significance of elastic scalability can be described as follows:
 
 - 峰值负载应对：促销活动、节假日购物季或突发事件根据需求快速扩展资源，保证应用可用性和性能。
 - 提高资源利用率：根据实际资源负载动态调整资源规模，避免基础设施资源浪费，降低 TCO。
 - 应对故障和容错：多实例部署和快速替换，提高业务连续性和可用性。
 - 跟随需求变化：匹配前端的业务需求及压力，快速调整规模，提高事件应对能力，满足需求和期望
+- Peak load handling: Scaling resources rapidly based on demand during promotional campaigns, holiday shopping seasons, or unexpected events to ensure application availability and performance.
 
 
 ## Horizontal Pod Autoscaling
