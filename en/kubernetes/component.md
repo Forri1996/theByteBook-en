@@ -1,24 +1,36 @@
-# 8.3 Kubernetes 系统架构
+# 8.3 Kubernetes System architecture
 
-Kubernetes 是典型的主从架构。有两部分组成：管理者被称为 Control Plane（控制平面）、被管理者称为 Node（节点）。
+Kubernetes is a typical master-slave architecture. It consists of two parts: the manager, called Control Plane, and the managed, called Node
 
 <div  align="center">
 	<img src="../assets/k8s.png" width = "650"  align=center />
-	<p>图 Kubernetes 架构</p>
+	<p>Feature Kubernetes Architecture</p>
 </div>
 
 ## 1. Control Plane
 
-Control Plane 是集群管理者，在逻辑上只有一个。按照习惯称呼，我们也可把该计算机称之为 Master 节点。Control Plane 对节点进行统一管理，调度资源并操作 Pod，它的目标就是使得用户创建的各种 Kubernetes 对象按照其配置所描述的状态运行。它包含如下组件：
+The Control Plane is the cluster manager, logically represented as a single entity. According to convention, we can also refer to this computer as the Master node. The Control Plane manages nodes uniformly, schedules resources, and operates Pods. Its objective is to ensure that various Kubernetes objects created by users run according to the state described in their configurations. It includes the following components:
 
-- API Server： 操作 Kubernetes 各个资源的应用接口。并提供认证、授权、访问控制、API 注册和发现等机制。
-- Scheduler（调度器）：负责调度 Pod 到合适的 Node 上。例如，通过 API Server 创建 Pod 后，Scheduler 将按照调度策略寻找一个合适的 Node。
-- Controller Manager（集群控制器）：负责执行对集群的管理操作。例如，按照预期增加或者删除 Pod，按照既定顺序系统一系列 Pod。
+- API Server: This is the application interface that operates various resources within Kubernetes. It provides mechanisms for authentication, authorization, access control, API registration, and discovery among other functionalities.
+
+- Scheduler: Responsible for scheduling Pods onto suitable Nodes. For instance, after a Pod is created through the API Server, the Scheduler employs scheduling policies to find a suitable Node for deployment..
+
+- Controller Manager: Responsible for executing management operations within the cluster. For instance, it manages the expected addition or deletion of Pods and initiates a sequence of Pods according to a predefined order.
+
+
+
+
 
 ## 2. Node
 
-Node 通常也被称为工作节点，可以有多个，用于运行 Pod 并根据 Control Plane 的命令管理各个 Pod，它包含如下组件：
+The Node, commonly referred to as a worker node, can be multiple in number and is used to run Pods. It manages individual Pods based on commands from the Control Plane. It includes the following components:
 
-- Kubelet 是 Kubernetes 在 Node 节点上运行的代理，负责所在 Node 上 Pod 创建、销毁等整个生命周期的管理。
-- Kube-proxy 在 Kubernetes 中，将一组特定的 Pod 抽象为 Service，Kube-proxy 通过维护节点上的网络规则，为 Service 提供集群内服务发现和负载均衡功能。
-- Container runtime (容器运行时)：负责 Pod 和 内部容器的运行。在第七章已经介绍过各类容器运行时，Kubernetes 支持多种容器运行时，如 containerd、Docker 等。
+- Kubelet: It's the agent that runs on the Node in Kubernetes, responsible for managing the entire lifecycle of Pods on that Node, including creation and termination.
+
+- Within Kubernetes, Kube-proxy abstracts a specific set of Pods as a Service. It provides intra-cluster service discovery and load balancing for Services by maintaining network rules on the node.
+
+- Container runtime: It is responsible for running Pods and their internal containers. In earlier chapters, various types of container runtimes were introduced. Kubernetes supports multiple container runtimes such as containerd, Docker, and others.
+
+
+
+
