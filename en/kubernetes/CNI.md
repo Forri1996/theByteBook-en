@@ -1,45 +1,44 @@
 # Kubernetes CNI
 
-在介绍 CNI 规范之前，我们先了解 Kubernetes 集群内的网络模型定义。
+Before introducing the CNI specifications, let's first understand the definition of the network model within a Kubernetes cluster.
 
-- 每个 Pod 都有一个独立 IP，Pod 内所有的容器共享一个网络命名空间。
-- 集群内所有的 Pod 都在一个直连连通的扁平网络中，无需 NAT 就可以互相访问 Node 和容器
-- Service Cluster IP 可在集群内部访问。外部请求需要通过 NodePort、LoadBalance 或者 Ingress 访问。
-
+- Each Pod has its own unique IP address, and all containers within the Pod share a common network namespace.
+All Pods within the cluster reside in a flat network that allows direct communication without requiring NAT for accessing nodes and containers.
+- The Service Cluster IP is accessible within the cluster. External requests require access through NodePort, LoadBalancer, or Ingress to reach it.
 <div  align="center">
 	<img src="../assets/k8s-net.png" width = "300"  align=center />
 </div>
 
 
-CNI(Container Network Interface) 是 CNCF 项目，定义了一套 Linux 容器网络接口规范，同时也包含了一些插件和实现库。
+The Container Network Interface (CNI) is a CNCF (Cloud Native Computing Foundation) project that defines a set of specifications for Linux container networking interfaces. It also encompasses various plugins and implementation libraries.
 
-Kubernetes 本身不实现集群内的网络模型，而是通过将其抽象出来提供了 CNI 接口给第三方实现，这样一来节省了开发资源可以集中精力到 Kubernetes 本身，二来可以利用开源社区的力量打造一整个丰富的生态。
-
+Kubernetes itself doesn't implement the network model within the cluster. Instead, it abstracts and provides the CNI interface for third-party implementations. This approach conserves development resources, allowing them to focus on enhancing Kubernetes itself. Moreover, it harnesses the collective power of the open-source community to build a rich ecosystem around it.
 
 Kubernetes 并不关心各个 CNI 如何具体实现上述基础规则，只要最终的网络模型符合标准即可。因此我们可以确保不论使用什么 CNI，Kubernetes 集群内的 Pod 网络都是一张巨大的平面网络，每个 Pod 在这张网络中地位是平等的，这种设计对于集群内的服务发现、负载均衡、服务迁移、应用配置等诸多场景都带来了极大的便利。
+kubernetes doesn't care about how a CNI implements the base rule mentioned abrove, as long as it match the eventual standard of netword model.As a result we are able to ensure no matter what CNI we use, the network within the k8s cluster is a huge flat networking and each pod's rules in this network is equal.This design brings a lot convenience for the senerio of service discovery, loadbalance, service migrate, application configuration within the cluster.
+
+Kubernetes isn't concerned about the specific implementation details of each CNI regarding the foundational rules mentioned earlier. As long as the final network model adheres to the standards. Thus, regardless of the CNI used, the Pod network within a Kubernetes cluster forms a unified flat network. Each Pod holds an equal status within this network. Such a design significantly facilitates various scenarios within the cluster, including service discovery, load balancing, service migration, application configuration, and more.
 
 
-## CNI 设计思路
+## CNI design idea
 
-CNI 设计的基本思路是：容器运行时创建网络命令空间 (network namepsace) 后，然后由 CNI 插件负责网络配置，最后启动容器内的应用。CNI 定义了两个插件， CNI plugin 主要用于负责配置网络，以及负责容器地址的 IPAM plugin。我们以容器的启动为例，介绍这两个插件的应用。
+The basic approach in CNI design involves the creation of a network namespace by the container runtime. Subsequently, CNI plugins take charge of network configuration, culminating in the launch of applications within the container. CNI defines two primary plugins: the CNI plugin responsible for network configuration, and the IPAM plugin handling container address allocation. Let's delve into the application of these two plugins using container startup as an example.
 
-- kubelet 在启动容器之前，先启用 Pause 容器。
-- Pause 容器启动之前创建网络 namespace。
-- 如果 Kubelet 配置了 CNI，会调用对应的 CNI 插件
-- CNI 插件执行网络配置操作，如创建虚拟网卡、加入网络空间等。
-- CNI 调用 ipam 分配地址。
-- 启动 Pod 内其他容器，并共享 Pause 容器内网络空间。
+- Before starting the containers, `kubelet` initiates a Pause container.
+- A network namespace is created before the Pause container starts.
+- If kubelet is configured with CNI, it will invoke the corresponding CNI plugin.
+- The CNI plugin performs network configuration tasks, such as creating virtual network interfaces and joining the network namespace.
+- CNI invoke ipam to allocate adadress
+- Start other containers within the Pod and share the network namespace created by the Pause container.
 
-## CNI 插件网络方案
+## CNI plugin's network solution
 
-当前 CNI 插件主流的方案有以下几种：
+The current mainstream solutions for CNI plugins include the following:
 
-- 二层互联，这种方案与传统的 vlan 相结合，弊端是需要再网络硬件上配置 vlan 等信息，不方便管理，并且规模受限，不适用于跨机房互通互联，优点是网络损耗较小，适合小规模集群部署。
+- Layer 2 Interconnect: This method combines with traditional VLANs.In the need for configuring VLAN information on network hardware, making it less manageable. Moreover, it has scalability limitations and isn't suitable for cross-data center connectivity. However, it offers lower network overhead and is suitable for small-scale cluster deployments.
 
-- 三层路由，主要是借助 BGP 等三层路由协议完成路由传递。这种方案优势是传输率较高，不需要封包、解包， 但 BGP 等协议在很多数据中心内部支持，设置较为麻烦。
+- The three-layer routing, mainly relies on BGP and other three-layer routing protocols to complete the routing transmission. The advantage of this solution is that it has a higher transmission rate and does not require packet encapsulation and decapsulation. However, BGP and other protocols are supported within many data centers, making the setup more complicated.
 
-- Overlay 方案，主要是借助 VXLAN 或者 ipip 等 overlay 协议完成容器互通。 这种方案优点可以完成跨数据中心的网络互联。但弊端是数据封包、解包有一定的计算压力和网络延迟消耗。
+- The Overlay solution, primarily utilizing VXLAN or ipip overlay protocols, enables interoperability among containers. This approach has the advantage of enabling network interconnection across different data centers. However, it also has the disadvantage of adding computational overhead and network latency due to packet encapsulation and decapsulation.
 
-- SDN 方案，主要是借助 SDN 控制器外加 ovs 等虚拟网络交换机完成数据的转发，这种方案的优点是网络可以随意定制，缺点是复杂度较高。
-
-当前主流的网络方案包括 Calico、Weave、Flanne、
+- The SDN solution, primarily utilizing an SDN controller in combination with virtual network switches such as ovs, is used to facilitate data forwarding. The advantage of this approach is that the network can be customized as needed, while the disadvantage is its complexity.
